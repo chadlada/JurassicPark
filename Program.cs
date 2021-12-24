@@ -60,26 +60,30 @@ namespace JurassicPark
                 Console.Write("What do you want to do?\n(A)dd Dinosaur\n(D)elete Dinosaur\n(S)how all Dinosaurs\n(F)ind/Search Dinosaur\n(T)ransfer/Update\n(Q)uit:\n");
                 var choice = Console.ReadLine().ToUpper();
 
-
-
-                if (choice == "Q")
+                switch (choice)
                 {
-                    keepGoing = false;
+                    case "Q":
+                        keepGoing = false;
+                        break;
+                    case "D":
+                        DeleteEmployee(database);
+                        break;
+                    case "F":
+                        FindDino(database);
+                        break;
+                    case "S":
+                        ShowAllDinos(database);
+                        break;
+                    case "T":
+                        TransferUpdate(database);
+                        break;
+                    case "A":
+                        AddDino(database);
+                        break;
+                    default:
+                        Console.WriteLine("NOPE!");
+                        break;
                 }
-                else
-                if (choice == "S")
-                {
-                    ShowAllDinos(database);
-                }
-                else
-                if (choice == "D")
-                {
-                    DeleteEmployee(database);
-                }
-
-                else
-                    TransferDino(database, choice);
-
             }
         }
 
@@ -111,47 +115,32 @@ namespace JurassicPark
 
         private static void TransferDino(DinosaurDatabase database, string choice)
         {
-            if (choice == "F")
+
+        }
+
+        private static void TransferUpdate(DinosaurDatabase database)
+        {
+            var nameToSearchFor = PromptForString("What name are you looking for? ");
+            Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
+
+            if (foundDino == null)
             {
-                FindDino(database);
+                Console.WriteLine("No such dino up in here!");
             }
-
             else
-            if (choice == "A")
             {
-                AddDino(database);
-            }
+                Console.WriteLine($"{foundDino.Name} is a {foundDino.DietType}, weighs {foundDino.Weight}, and is located in enclosure # {foundDino.EnclosureNumber}");
+                var changeChoice = PromptForString("What do you want to change?[Name/Enclosure]? ").ToUpper();
 
-            else
-            if (choice == "T")
-            {
-                var nameToSearchFor = PromptForString("What name are you looking for? ");
-                Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
-
-                if (foundDino == null)
+                if (changeChoice == "NAME")
                 {
-                    Console.WriteLine("No such dino up in here!");
+                    foundDino.Name = PromptForString("What is the new name?");
                 }
-                else
+                if (changeChoice == "ENCLOSURE")
                 {
-                    Console.WriteLine($"{foundDino.Name} is a {foundDino.DietType}, weighs {foundDino.Weight}, and is located in enclosure # {foundDino.EnclosureNumber}");
-                    var changeChoice = PromptForString("What do you want to change?[Name/Enclosure]? ").ToUpper();
-
-                    if (changeChoice == "NAME")
-                    {
-                        foundDino.Name = PromptForString("What is the new name?");
-                    }
-                    if (changeChoice == "ENCLOSURE")
-                    {
-                        foundDino.EnclosureNumber = PromptForInteger("What is the new enclosure number? ");
-                    }
-
+                    foundDino.EnclosureNumber = PromptForInteger("What is the new enclosure number? ");
                 }
-            }
 
-            else
-            {
-                Console.WriteLine("NOPE!");
             }
         }
 
