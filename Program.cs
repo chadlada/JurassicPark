@@ -60,6 +60,8 @@ namespace JurassicPark
                 Console.Write("What do you want to do?\n(A)dd Dinosaur\n(D)elete Dinosaur\n(S)how all Dinosaurs\n(F)ind/Search Dinosaur\n(T)ransfer/Update\n(Q)uit:\n");
                 var choice = Console.ReadLine().ToUpper();
 
+
+
                 if (choice == "Q")
                 {
                     keepGoing = false;
@@ -67,102 +69,125 @@ namespace JurassicPark
                 else
                 if (choice == "S")
                 {
-
-                    foreach (var dinosaur in database.GetAllDinos())
-                    {
-                        Console.WriteLine($"{dinosaur.Name} is a {dinosaur.DietType}, weighs {dinosaur.Weight}, and is located in enclosure # {dinosaur.EnclosureNumber}");
-                    }
+                    ShowAllDinos(database);
                 }
                 else
                 if (choice == "D")
                 {
-                    var nameToSearchFor = PromptForString("What name are you looking for? ");
-                    // Dinosaur foundDino = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
-
-
-                    Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
-
-                    if (foundDino == null)
-
-                    {
-                        Console.WriteLine("No such dino up in here!");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{foundDino.Name} is a {foundDino.DietType}, weighs {foundDino.Weight}, and is located in enclosure # {foundDino.EnclosureNumber}");
-                        var confirm = PromptForString("Are you sure? [Y/N] ").ToUpper();
-
-                        if (confirm == "Y")
-                        {
-                            database.DeleteDino(foundDino);
-                        }
-
-                    }
+                    DeleteEmployee(database);
                 }
 
                 else
-                if (choice == "F")
+                    TransferDino(database, choice);
+
+            }
+        }
+
+        private static void DeleteEmployee(DinosaurDatabase database)
+        {
+            var nameToSearchFor = PromptForString("What name are you looking for? ");
+            // Dinosaur foundDino = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
+
+
+            Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
+
+            if (foundDino == null)
+
+            {
+                Console.WriteLine("No such dino up in here!");
+            }
+            else
+            {
+                Console.WriteLine($"{foundDino.Name} is a {foundDino.DietType}, weighs {foundDino.Weight}, and is located in enclosure # {foundDino.EnclosureNumber}");
+                var confirm = PromptForString("Are you sure? [Y/N] ").ToUpper();
+
+                if (confirm == "Y")
                 {
-                    var nameToSearchFor = PromptForString("What name are you looking for? ");
-
-                    Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
-
-                    if (foundDino == null)
-                    {
-                        Console.WriteLine("No such dino up in here!");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{foundDino.Name} is a {foundDino.DietType}, weighs {foundDino.Weight}, and is located in enclosure # {foundDino.EnclosureNumber}");
-                    }
-
+                    database.DeleteDino(foundDino);
                 }
 
-                else
-                if (choice == "A")
+            }
+        }
+
+        private static void TransferDino(DinosaurDatabase database, string choice)
+        {
+            if (choice == "F")
+            {
+                FindDino(database);
+            }
+
+            else
+            if (choice == "A")
+            {
+                AddDino(database);
+            }
+
+            else
+            if (choice == "T")
+            {
+                var nameToSearchFor = PromptForString("What name are you looking for? ");
+                Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
+
+                if (foundDino == null)
                 {
-                    var dinosaur = new Dinosaur();
-                    dinosaur.Name = PromptForString("Dinosaur name: ");
-                    dinosaur.DietType = PromptForString("Dinosaur diet type: ");
-                    dinosaur.EnclosureNumber = PromptForInteger("What is the enclosure number: ");
-                    dinosaur.Weight = PromptForInteger("Dinosaur weight: ");
-                    // dinosaur.WhenAcquired = DateTime (DateTime);  **HELP**
-
-                    database.AddDino(dinosaur);
+                    Console.WriteLine("No such dino up in here!");
                 }
-
-                else
-                if (choice == "T")
-                {
-                    var nameToSearchFor = PromptForString("What name are you looking for? ");
-                    Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
-
-                    if (foundDino == null)
-                    {
-                        Console.WriteLine("No such dino up in here!");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{foundDino.Name} is a {foundDino.DietType}, weighs {foundDino.Weight}, and is located in enclosure # {foundDino.EnclosureNumber}");
-                        var changeChoice = PromptForString("What do you want to change?[Name/Enclosure]? ").ToUpper();
-
-                        if (changeChoice == "NAME")
-                        {
-                            foundDino.Name = PromptForString("What is the new name?");
-                        }
-                        if (changeChoice == "ENCLOSURE")
-                        {
-                            foundDino.EnclosureNumber = PromptForInteger("What is the new enclosure number? ");
-                        }
-
-                    }
-                }
-
                 else
                 {
-                    Console.WriteLine("NOPE!");
-                }
+                    Console.WriteLine($"{foundDino.Name} is a {foundDino.DietType}, weighs {foundDino.Weight}, and is located in enclosure # {foundDino.EnclosureNumber}");
+                    var changeChoice = PromptForString("What do you want to change?[Name/Enclosure]? ").ToUpper();
 
+                    if (changeChoice == "NAME")
+                    {
+                        foundDino.Name = PromptForString("What is the new name?");
+                    }
+                    if (changeChoice == "ENCLOSURE")
+                    {
+                        foundDino.EnclosureNumber = PromptForInteger("What is the new enclosure number? ");
+                    }
+
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("NOPE!");
+            }
+        }
+
+        private static void FindDino(DinosaurDatabase database)
+        {
+            var nameToSearchFor = PromptForString("What name are you looking for? ");
+
+            Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
+
+            if (foundDino == null)
+            {
+                Console.WriteLine("No such dino up in here!");
+            }
+            else
+            {
+                Console.WriteLine($"{foundDino.Name} is a {foundDino.DietType}, weighs {foundDino.Weight}, and is located in enclosure # {foundDino.EnclosureNumber}");
+            }
+        }
+
+        private static void AddDino(DinosaurDatabase database)
+        {
+            var dinosaur = new Dinosaur();
+            dinosaur.Name = PromptForString("Dinosaur name: ");
+            dinosaur.DietType = PromptForString("Dinosaur diet type: ");
+            dinosaur.EnclosureNumber = PromptForInteger("What is the enclosure number: ");
+            dinosaur.Weight = PromptForInteger("Dinosaur weight: ");
+            // dinosaur.WhenAcquired = DateTime (DateTime);  **HELP**
+
+            database.AddDino(dinosaur);
+        }
+
+        private static void ShowAllDinos(DinosaurDatabase database)
+        {
+            foreach (var dinosaur in database.GetAllDinos())
+            {
+                Console.WriteLine($"{dinosaur.Name} is a {dinosaur.DietType}, weighs {dinosaur.Weight}, and is located in enclosure # {dinosaur.EnclosureNumber}");
             }
         }
     }
