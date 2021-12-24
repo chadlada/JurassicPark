@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace JurassicPark
 {
-    class Dinosaur
-    {
 
-        public string Name { get; set; }
-        public string DietType { get; set; }
-        public int EnclosureNumber { get; set; }
-        public int Weight { get; set; }
-        public DateTime WhenAcquired { get; set; } = DateTime.Now;
-
-    }
 
     class Program
     {
@@ -56,7 +46,7 @@ namespace JurassicPark
         static void Main(string[] args)
         {
             var dinosaurs = new List<Dinosaur>();
-
+            var database = new DinosaurDatabase();
 
 
             DisplayGreeting();
@@ -78,7 +68,7 @@ namespace JurassicPark
                 if (choice == "S")
                 {
 
-                    foreach (var dinosaur in dinosaurs)
+                    foreach (var dinosaur in database.GetAllDinos())
                     {
                         Console.WriteLine($"{dinosaur.Name} is a {dinosaur.DietType}, weighs {dinosaur.Weight}, and is located in enclosure # {dinosaur.EnclosureNumber}");
                     }
@@ -87,7 +77,11 @@ namespace JurassicPark
                 if (choice == "D")
                 {
                     var nameToSearchFor = PromptForString("What name are you looking for? ");
-                    Dinosaur foundDino = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
+                    // Dinosaur foundDino = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
+
+
+                    Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
+
                     if (foundDino == null)
 
                     {
@@ -100,8 +94,9 @@ namespace JurassicPark
 
                         if (confirm == "Y")
                         {
-                            dinosaurs.Remove(foundDino);
+                            database.DeleteDino(foundDino);
                         }
+
                     }
                 }
 
@@ -110,7 +105,7 @@ namespace JurassicPark
                 {
                     var nameToSearchFor = PromptForString("What name are you looking for? ");
 
-                    Dinosaur foundDino = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
+                    Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
 
                     if (foundDino == null)
                     {
@@ -133,16 +128,16 @@ namespace JurassicPark
                     dinosaur.Weight = PromptForInteger("Dinosaur weight: ");
                     // dinosaur.WhenAcquired = DateTime (DateTime);  **HELP**
 
-                    dinosaurs.Add(dinosaur);
+                    database.AddDino(dinosaur);
                 }
-                // End of While Loop
+
                 else
                 if (choice == "T")
                 {
                     var nameToSearchFor = PromptForString("What name are you looking for? ");
-                    Dinosaur foundDino = dinosaurs.FirstOrDefault(dinosaur => dinosaur.Name == nameToSearchFor);
-                    if (foundDino == null)
+                    Dinosaur foundDino = database.FindOneDino(nameToSearchFor);
 
+                    if (foundDino == null)
                     {
                         Console.WriteLine("No such dino up in here!");
                     }
@@ -160,9 +155,6 @@ namespace JurassicPark
                             foundDino.EnclosureNumber = PromptForInteger("What is the new enclosure number? ");
                         }
 
-                        // ask for name to search for
-                        // if we find name:
-                        // what do we want to change?
                     }
                 }
 
