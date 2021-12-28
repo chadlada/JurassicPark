@@ -19,8 +19,8 @@ namespace JurassicPark
         static void DisplayGreeting()
         {
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine("    Welcome to Our Jurassic Park    ");
-            Console.WriteLine("----------------------------------------\n");
+            Console.WriteLine("    Welcome to Jurassic Park    ");
+            Console.WriteLine("----------------------------------------\n\n\n");
 
             Console.WriteLine("-*-*-*-*-*-*-*-*-MENU-*-*-*-*-*-*-*-*-\n");
             Console.WriteLine("What would you like to do?\n");
@@ -88,10 +88,11 @@ namespace JurassicPark
 
                 else if (userChoice == "A")
                 {
+                    // make new employee object
                     var dinosaur = new Dinosaur();
 
                     dinosaur.DinoName = PromptForString("Dinosaur Name: ");
-                    dinosaur.DietType = PromptForString("Diet Type - (C)arnivore / (H)erbivore: ");
+                    dinosaur.DietType = PromptForString("Diet Type - (C)arnivore or (H)erbivore: ");
                     Console.WriteLine($"Date Acquire {DateTime.Now}");
                     dinosaur.Weight = PromptForInteger("Weight: ");
                     dinosaur.EnclosureNumber = PromptForInteger("Enclosure Number: ");
@@ -119,13 +120,13 @@ namespace JurassicPark
 
                 else if (userChoice == "R")
                 {
-                    var nameToSearchFor = PromptForString("Which name would you like to remove?: ");
+                    var nameToSearchFor = PromptForString("Which name would you like to remove?: \n");
                     Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.DinoName == nameToSearchFor);
 
                     if (foundDinosaur == null)
 
                     {
-                        Console.WriteLine("No such dinosaur in collection");
+                        Console.WriteLine("No such dinosaur in collection\n\n\n\n");
                     }
 
                     else
@@ -185,7 +186,7 @@ namespace JurassicPark
                     {
                         var viewDinoName = dinosaurs.First(dinosaur => dinosaur.DinoName == dinosaur.DinoName);
                         var viewWhenAcquired = dinosaurs.Count(dinosaur => dinosaur.WhenAcquired == dinosaur.WhenAcquired);
-                        Console.WriteLine($"Dino Name: {dinosaur.DinoName}\n When Acquired: {dinosaur.WhenAcquired} ");
+                        Console.WriteLine($"Dino Name: {dinosaur.DinoName}\nWhen Acquired: {dinosaur.WhenAcquired} ");
                     }
 
                     if (dinosaurs == null)
