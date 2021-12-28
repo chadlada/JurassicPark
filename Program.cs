@@ -98,15 +98,105 @@ namespace JurassicPark
 
                     dinosaurs.Add(dinosaur);
                 }
+                else if (userChoice == "C")
+                {
 
+                    foreach (var dinosaur in dinosaurs)
+                    {
+                        Console.WriteLine("The following dinosaurs are in our collection:\n");
+                        Console.WriteLine($"Dino Name: {dinosaur.DinoName}");
+                        Console.WriteLine($"Dino Diet Type: {dinosaur.DietType}");
+                        Console.WriteLine($"Enclosure Number: {dinosaur.EnclosureNumber}");
+                        Console.WriteLine($"When Acquired: {dinosaur.WhenAcquired}");
+                        Console.WriteLine($"Weight: {dinosaur.Weight}");
+                    }
 
+                    if (dinosaurs == null)
+                    {
+                        Console.WriteLine("No dinosaurs in collection");
+                    }
+                }
 
-                // Console.WriteLine("Would you like to add another Dinosaur to the database? (Y)es/(N)o ");
-                // If Yes, loop through fields to add
-                // If No, return to menu
+                else if (userChoice == "R")
+                {
+                    var nameToSearchFor = PromptForString("Which name would you like to remove?: ");
+                    Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.DinoName == nameToSearchFor);
 
+                    if (foundDinosaur == null)
 
+                    {
+                        Console.WriteLine("No such dinosaur in collection");
+                    }
+
+                    else
+                    {
+                        Console.WriteLine($"Remove: {foundDinosaur.DinoName} ");
+                        var confirm = PromptForString("Are you sure [Y/N] ").ToUpper();
+
+                        if (confirm == "Y")
+                        {
+                            dinosaurs.Remove(foundDinosaur);
+                        }
+
+                    }
+
+                }
+                else if (userChoice == "S")
+                {
+                    var numCarnivore = dinosaurs.Count(dinosaur => dinosaur.DietType == "C");
+                    var numHerbivore = dinosaurs.Count(dinosaur => dinosaur.DietType == "H");
+
+                    if (numCarnivore == 0 && numHerbivore == 0)
+                    {
+                        Console.WriteLine("There are no such dinosaur in these parts!");
+                    }
+                    else if (numCarnivore != 0 || numHerbivore != 0)
+                    {
+                        Console.WriteLine("Here's a summary of our collections diet types");
+                        Console.WriteLine($"Carnivore Count: {numCarnivore}");
+                        Console.WriteLine($"Herbivore Count: {numHerbivore}");
+                    }
+
+                }
+                else if (userChoice == "T")
+                {
+                    var nameToSearchFor = PromptForString("Which dinosaur would you like to transfer?");
+                    Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.DinoName == nameToSearchFor);
+
+                    if (foundDinosaur == null)
+                    {
+                        Console.WriteLine("No such dino in these here parts!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Transfer {foundDinosaur.DinoName} ");
+                        var confirm = PromptForString("Are you sure? [Y/N] ").ToUpper();
+                        if (confirm == "Y")
+                        {
+                            foundDinosaur.EnclosureNumber = PromptForInteger("Enter new enclosure number: ");
+                        }
+
+                        Console.WriteLine($"{foundDinosaur.DinoName} has been transferred to {foundDinosaur.EnclosureNumber}");
+                    }
+                }
+                else if (userChoice == "V")
+                {
+                    foreach (var dinosaur in dinosaurs)
+                    {
+                        var viewDinoName = dinosaurs.First(dinosaur => dinosaur.DinoName == dinosaur.DinoName);
+                        var viewWhenAcquired = dinosaurs.Count(dinosaur => dinosaur.WhenAcquired == dinosaur.WhenAcquired);
+                        Console.WriteLine($"Dino Name: {dinosaur.DinoName}\n When Acquired: {dinosaur.WhenAcquired} ");
+                    }
+
+                    if (dinosaurs == null)
+                    {
+                        Console.WriteLine("No dinos in collection.");
+                    }
+                }
             }
+            // End of While Loop
         }
+        // End of Main
     }
+    // End of Program
 }
