@@ -93,7 +93,8 @@ namespace JurassicPark
 
                     dinosaur.DinoName = PromptForString("Dinosaur Name: ");
                     dinosaur.DietType = PromptForString("Diet Type - (C)arnivore or (H)erbivore: ");
-                    Console.WriteLine($"Date Acquire {DateTime.Now}");
+                    dinosaur.WhenAcquired = DateTime.Now;
+                    // Console.WriteLine($"Date Acquire {DateTime.Now}");
                     dinosaur.Weight = PromptForInteger("Weight: ");
                     dinosaur.EnclosureNumber = PromptForInteger("Enclosure Number: ");
 
@@ -184,8 +185,8 @@ namespace JurassicPark
                 {
                     foreach (var dinosaur in dinosaurs)
                     {
-                        var viewDinoName = dinosaurs.First(dinosaur => dinosaur.DinoName == dinosaur.DinoName);
-                        var viewWhenAcquired = dinosaurs.Count(dinosaur => dinosaur.WhenAcquired == dinosaur.WhenAcquired);
+                        // var viewDinoName = dinosaurs.First(dinosaur => dinosaur.DinoName == dinosaur.DinoName);
+                        // var viewWhenAcquired = dinosaurs.Count(dinosaur => dinosaur.WhenAcquired == dinosaur.WhenAcquired);
                         Console.WriteLine($"Dino Name: {dinosaur.DinoName}\nWhen Acquired: {dinosaur.WhenAcquired} ");
                     }
 
