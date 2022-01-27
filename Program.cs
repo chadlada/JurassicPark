@@ -88,39 +88,47 @@ namespace JurassicPark
 
                 else if (userChoice == "A")
                 {
-                    // make new employee object
+                    Console.Clear();
                     var dinosaur = new Dinosaur();
-
                     dinosaur.DinoName = PromptForString("Dinosaur Name: ");
-                    dinosaur.DietType = PromptForString("Diet Type - (C)arnivore or (H)erbivore: ");
-                    dinosaur.WhenAcquired = DateTime.Now;
-                    // Console.WriteLine($"Date Acquire {DateTime.Now}");
-                    dinosaur.Weight = PromptForInteger("Weight: ");
+                    dinosaur.DietType = PromptForString("Diet Type (C)arnivore or (H)erbivore: ");
                     dinosaur.EnclosureNumber = PromptForInteger("Enclosure Number: ");
-
+                    dinosaur.WhenAcquired = DateTime.Now;
+                    dinosaur.Weight = PromptForInteger("Weight: ");
                     dinosaurs.Add(dinosaur);
+                    Console.WriteLine($"\n{dinosaur.DinoName} added to database.");
+                    Console.WriteLine("\nPress ENTER to return to main menu");
+                    Console.ReadLine();
+                    Console.Clear();
+
                 }
                 else if (userChoice == "C")
                 {
+                    Console.Clear();
 
+                    Console.WriteLine("The following dinosaurs are in our collection: \n");
                     foreach (var dinosaur in dinosaurs)
                     {
-                        Console.WriteLine("The following dinosaurs are in our collection:\n");
-                        Console.WriteLine($"Dino Name: {dinosaur.DinoName}");
-                        Console.WriteLine($"Dino Diet Type: {dinosaur.DietType}");
-                        Console.WriteLine($"Enclosure Number: {dinosaur.EnclosureNumber}");
-                        Console.WriteLine($"When Acquired: {dinosaur.WhenAcquired}");
-                        Console.WriteLine($"Weight: {dinosaur.Weight}");
+                        Console.WriteLine($"Name: {dinosaur.DinoName}");
+                        Console.WriteLine($"DietType: {dinosaur.DietType}");
+                        Console.WriteLine($"Enclosure#: {dinosaur.EnclosureNumber}");
+                        Console.WriteLine($"WhenAcquired: {dinosaur.WhenAcquired}");
+                        Console.WriteLine($"Weight: {dinosaur.Weight}\n");
                     }
-
                     if (dinosaurs == null)
                     {
-                        Console.WriteLine("No dinosaurs in collection");
+                        Console.WriteLine("No dinosaurs to report!");
                     }
+                    Console.WriteLine("\nPress ENTER to return to main menu");
+                    Console.ReadLine();
+                    Console.Clear();
+
                 }
 
                 else if (userChoice == "R")
                 {
+                    Console.Clear();
+
                     var nameToSearchFor = PromptForString("Which name would you like to remove?: \n");
                     Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.DinoName == nameToSearchFor);
 
@@ -141,27 +149,37 @@ namespace JurassicPark
                         }
 
                     }
+                    Console.WriteLine("\nPress ENTER to return to main menu");
+                    Console.ReadLine();
+                    Console.Clear();
 
                 }
                 else if (userChoice == "S")
                 {
-                    var numCarnivore = dinosaurs.Count(dinosaur => dinosaur.DietType == "C");
-                    var numHerbivore = dinosaurs.Count(dinosaur => dinosaur.DietType == "H");
+                    Console.Clear();
+                    var numbOfCarn = dinosaurs.Count(dinosaur => dinosaur.DietType == "C");
+                    var numbOfHerb = dinosaurs.Count(dinosaur => dinosaur.DietType == "H");
 
-                    if (numCarnivore == 0 && numHerbivore == 0)
+                    if (numbOfCarn == 0 && numbOfHerb == 0)
                     {
-                        Console.WriteLine("There are no such dinosaur in these parts!");
+                        Console.WriteLine("There are no dinos in these parts!");
                     }
-                    else if (numCarnivore != 0 || numHerbivore != 0)
+                    else if (numbOfCarn != 0 || numbOfHerb != 0)
                     {
-                        Console.WriteLine("Here's a summary of our collections diet types");
-                        Console.WriteLine($"Carnivore Count: {numCarnivore}");
-                        Console.WriteLine($"Herbivore Count: {numHerbivore}");
+                        Console.WriteLine($"Here's a summary of the dinosaur diet types");
+                        Console.WriteLine($"Carnivore Count: {numbOfCarn}");
+                        Console.WriteLine($"Herbivore Count: {numbOfHerb}");
+                        Console.WriteLine($"");
                     }
+                    Console.WriteLine("\nPress ENTER to return to main menu");
+                    Console.ReadLine();
+                    Console.Clear();
 
                 }
                 else if (userChoice == "T")
                 {
+                    Console.Clear();
+
                     var nameToSearchFor = PromptForString("Which dinosaur would you like to transfer?");
                     Dinosaur foundDinosaur = dinosaurs.FirstOrDefault(dinosaur => dinosaur.DinoName == nameToSearchFor);
 
@@ -180,9 +198,14 @@ namespace JurassicPark
 
                         Console.WriteLine($"{foundDinosaur.DinoName} has been transferred to {foundDinosaur.EnclosureNumber}");
                     }
+                    Console.WriteLine("\nPress ENTER to return to main menu");
+                    Console.ReadLine();
+                    Console.Clear();
                 }
                 else if (userChoice == "V")
                 {
+                    Console.Clear();
+
                     foreach (var dinosaur in dinosaurs)
                     {
                         // var viewDinoName = dinosaurs.First(dinosaur => dinosaur.DinoName == dinosaur.DinoName);
@@ -194,6 +217,9 @@ namespace JurassicPark
                     {
                         Console.WriteLine("No dinos in collection.");
                     }
+                    Console.WriteLine("\nPress ENTER to return to main menu");
+                    Console.ReadLine();
+                    Console.Clear();
                 }
             }
             // End of While Loop
