@@ -5,17 +5,10 @@ using System.Linq;
 
 namespace JurassicPark
 {
-    class Dinosaur
-    {
-        public string DinoName { get; set; }
-        public string DietType { get; set; }
-        public DateTime WhenAcquired { get; set; }
-        public int Weight { get; set; }
-        public int EnclosureNumber { get; set; }
-    }
 
     class Program
     {
+
         static void DisplayGreeting()
         {
             Console.WriteLine("----------------------------------------");
@@ -65,9 +58,12 @@ namespace JurassicPark
 
 
 
+
+
         static void Main(string[] args)
         {
             var dinosaurs = new List<Dinosaur>();
+
 
             DateTime WhenAcquired = DateTime.Now;
 
