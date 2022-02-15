@@ -11,6 +11,7 @@ namespace JurassicPark
 
         static void DisplayGreeting()
         {
+
             Console.WriteLine("----------------------------------------");
             Console.WriteLine("    Welcome to Jurassic Park    ");
             Console.WriteLine("----------------------------------------\n\n\n");
